@@ -5,6 +5,7 @@ const userSchema =mongoose.Schema({
     email:String,
     image:String,
     description:String,
+    report:String,
     department:String
 })
 const userModel = mongoose.model("Employee",userSchema)
