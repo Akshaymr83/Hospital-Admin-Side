@@ -4,6 +4,7 @@ const multer = require('multer');
 const Department = require('./models/department');
 const userModel =require('./models/users')
 const userModelDH =require('./models/depHead')
+const Doctor = require('./models/doctors')
 const path = require('path');
 const app = express();
 const port = 4001;
@@ -16,6 +17,7 @@ const logiinModel =require("./models/login");
 const loginModel = require('./models/login');
 
 mongoose.connect('mongodb://127.0.0.1/hospital')
+// mongoose.connect('mongodb+srv://akshaymr83:saYb3czgI8uHbc5e@cluster0.sobagcm.mongodb.net/Hospital')
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
@@ -34,6 +36,12 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
 app.use(cookieParser());
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 
 
 
@@ -219,6 +227,20 @@ app.put("/updateEmployee/:id", upload.single('image'), async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});app.get("/getDeptHeadByName/:name", (req, res) => {
+  const { name } = req.params;
+userModelDH
+    .findOne() // Query by department name
+    .then((department) => {
+      if (!department) {
+        return res.status(404).json({ error: "Department not found" });
+      }
+      res.json(department);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    });
 });
 /////////////////////////////////////////////////Dept HEad//////////////////
 app.post('/depHead', upload.single('image'), async (req, res) => {
@@ -241,19 +263,17 @@ app.post('/depHead', upload.single('image'), async (req, res) => {
   }
 });
 
-app.get("/getUserDepHead/:id", async (req, res) => {
-  const { id } = req.params;
+app.get('/getUserDepHead/:id', async (req, res) => {
   try {
+    const id = req.params.id;
     const employee = await userModelDH.findById(id);
-    if (!employee) {
-      return res.status(404).json({ error: "Employee not found" });
-    }
-    res.json(employee);
+    res.json({ employee });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 app.put("/updateDepHead/:id", upload.single('image'), async (req, res) => {
   const { id } = req.params;
@@ -285,6 +305,69 @@ app.get('/getDepHead',async(req,res)=>{
     res.status(500).json({err:err.message});
   }
 });
+///////////////////////////////depHeAD by id////////////////////
+
+
+
+
+// Assuming you're using Express.js
+app.get("/getHeadByName/:name", (req, res) => {
+  const { name } = req.params;
+  userModelDH.findOne({ name: name })
+    .then((head) => {
+      if (!head) {
+        return res.status(404).json({ error: "Department head not found" });
+      }
+      res.json(head);
+    })
+    .catch((err) => {
+      console.error("Error fetching department head:", err);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
+
+
+
+
+
+////////////////////////////////////////////////////DEPARTMENT BY NAME
+
+
+// app.get("/getDEPByName/:department", (req, res) => {
+//   const { department } = req.params;
+//   Department.findOne({ department: department })
+//     .then((dep) => {
+//       if (!dep) {
+//         return res.status(404).json({ error: "Departmentnot found" });
+//       }
+//       res.json(dep);
+//     })
+//     .catch((err) => {
+//       console.error("Error fetching department :", err);
+//       res.status(500).json({ error: "Internal server error" });
+//     });
+// });
+
+app.get("/getDEPByName/:department", async (req, res) => {
+  const { department } = req.params;
+  try {
+    const dep = await Department.findOne({ department: department });
+    if (!dep) {
+      return res.status(404).json({ error: "Department not found" });
+    }
+    res.json(dep);
+  } catch (err) {
+    console.error("Error fetching department:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
+
+
+//////////////////////////////////////////////////
 app.delete('/deleteDepHead/:id',(req,res)=>{
   const {id} = req.params;
   userModelDH.findByIdAndDelete({_id:id})
@@ -322,6 +405,18 @@ app.get("/home", verifyUser, (req, res) => {
   res.json("Success");
 });
 
+// app.post("/signup", (req, res) => {
+//   const { name, email, password } = req.body;
+//   bcrypt
+//     .hash(password, 7)
+//     .then((hash) => {
+//       loginModel
+//         .create({ name, email, password: hash })
+//         .then((user) => res.json("Success"))
+//         .catch((err) => res.json(err));
+//     })
+//     .catch((err) => res.json(err));
+// });
 app.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
   bcrypt
@@ -334,6 +429,7 @@ app.post("/signup", (req, res) => {
     })
     .catch((err) => res.json(err));
 });
+
 
 
 app.post("/login", (req, res) => {
@@ -365,6 +461,23 @@ app.post("/login", (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   });
 });
+///////////////////////////////DOCTORS////////////////////////////
+
+// app.get('/getDoctor/:id', async (req, res) => {
+//   try {
+//     const doctor = await Doctor.findById(req.params.id);
+//     if (!doctor) {
+//       return res.status(404).json({ error: 'Doctor not found' });
+//     }
+//     res.json(doctor);
+//   } catch (error) {
+//     console.error('Error fetching doctor:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
+
 
 
 
