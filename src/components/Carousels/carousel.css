@@ -1,0 +1,63 @@
+.Cimage{
+    width: 100%;
+    height: 100vh;
+  object-fit: contain;
+   
+
+}
+.carousel-image-container {
+  position: relative;
+}
+
+.carousel-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white; /* Adjust text color as needed */
+  opacity: 1;
+  transition: opacity 0.5s ease; /* Adjust transition timing here */
+}
+
+.carousel-item {
+  transition: opacity 0.5s ease; /* Adjust transition timing here */
+}
+#Carousel1,h1{
+  font-size: 90px;
+  font-weight: 700;
+  left: 25%;
+
+  color: rgb(255, 255, 255);
+}
+#Carousel2,h1{
+  font-size: 45px;
+  font-weight: 700;
+  left: 28%;
+
+  color: rgb(43, 43, 43);
+}
+.medicarelogo{
+
+  font-weight: 700;
+  left: 25%;
+
+  color: rgb(255, 255, 255);
+  
+}
+.care{
+  font-weight: 700;
+  left: 25%;
+
+  color: rgb(27, 105, 135);
+}
+#Carousel3,h2{
+
+  font-weight: 700;
+  left: 25%;
+  font-size: 70px;
+  top: 40%;
+
+  color: rgb(255, 255, 255);
+}
+

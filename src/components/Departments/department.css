@@ -1,0 +1,95 @@
+.background{
+    background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+    
+        display: grid;
+        /* grid-template-columns: 700px 700px; */
+        grid-template-columns: repeat(auto-fit,minmax(min(20rem,100%),2fr));
+        row-gap: 3rem;
+        column-gap: 3rem;
+        grid-gap:2rem;
+      
+        justify-content: space-evenly;
+       
+        margin-right: 5rem;
+        margin-left: 5rem;
+        margin-top: 5rem;
+    
+}
+body{
+    background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+
+}
+
+.dcard{
+    display: flex;
+   width: 25rem;
+   height: 25rem;
+    align-items: flex-start;
+    position: relative;
+    align-items: center;
+    font-family: "Mukta Malar", sans-serif;
+    border-radius: 0px;
+background: #ffffff;
+padding-left: 1rem;
+
+             border-radius: 8px;
+    
+}
+.Img{
+    object-fit: contain;
+    height:200px;
+    width: 206px;
+  
+   
+   
+}
+Button{
+    margin-left: 10px;
+}
+
+  
+  .form {
+    background-color: #ffffff;
+    
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 5rem;
+    margin-left:30%;
+    width: 60%;
+    padding-bottom: 60px;
+    padding-top: 30PX;
+    padding-left: 30px;
+    width: 600px;
+    
+   
+  }
+  
+  .department,
+  .year,
+  .image,
+  .description {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+  }
+  .description{
+    height:129px ;
+  }
+  
+  .submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit:hover {
+    background-color: #0056b3;
+  }
+  
+ 
